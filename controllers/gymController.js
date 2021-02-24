@@ -1,5 +1,5 @@
 const { Gym } = require("../db/models");
-const { Class } = require("../db/models");
+const { Class, UserType } = require("../db/models");
 
 exports.FindGyms = async (req, res, next) => {
   try {
@@ -12,7 +12,13 @@ exports.FindGyms = async (req, res, next) => {
 
 exports.ClassCreate = async (req, res, next) => {
   try {
-    if (req.user.UserTypeId === 2) {
+    const admin = await UserType.findOne({
+      where: {
+        name: "admin",
+      },
+    });
+
+    if (req.user.UserTypeId === admin.id) {
       req.body.GymId = req.gym.id;
       const newClass = await Class.create(req.body);
       res.status(201).json(newClass);
@@ -28,7 +34,13 @@ exports.ClassCreate = async (req, res, next) => {
 
 exports.CreateGym = async (req, res) => {
   try {
-    if (req.user.UserTypeId === 2) {
+    const admin = await UserType.findOne({
+      where: {
+        name: "admin",
+      },
+    });
+
+    if (req.user.UserTypeId === admin.id) {
       // req.body.userId = req.user.id;
       const newGym = await Gym.create(req.body);
       res.status(201).json(newGym);

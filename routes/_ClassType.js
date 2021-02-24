@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   ClassTypeList,
   fetchClassType,
+  ListByType,
 } = require("../controllers/classTypesController");
 
 router.param("ClassTypeId", async (req, res, next, ClassTypeId) => {
@@ -19,5 +20,7 @@ router.param("ClassTypeId", async (req, res, next, ClassTypeId) => {
 });
 
 router.get("/", ClassTypeList);
+
+router.get("/:ClassTypeId", ListByType);
 
 module.exports = router;
