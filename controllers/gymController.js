@@ -1,24 +1,26 @@
 const { Gym } = require("../db/models");
-const { _Class } = require("../db/models/Class");
+const { Class } = require("../db/models");
 
-exports.FindGyms = async (req, res) => {
-  const gym = await Gym.findAll({
-    attributes: { exclude: ["createdAt", "updatedAt"] },
-    include: {
-      model: _Class,
-      as: "class",
-      attributes: ["id"],
-    },
-  });
-  res.json(gym);
+exports.FindGyms = async (req, res, next) => {
+  try {
+    const gym = await Gym.findAll();
+    res.json(gym);
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.ClassCreate = async (req, res, next) => {
   try {
-    req.body.GymId = req.gym.id;
-    const newClass = await _Class.create(req.body);
-    console.log(newClass);
-    res.status(201).json(newClass);
+    if (req.user.UserTypeId === 2) {
+      req.body.GymId = req.gym.id;
+      const newClass = await Class.create(req.body);
+      res.status(201).json(newClass);
+    } else {
+      res
+        .status(401)
+        .json({ messege: "You are not authirized to create a class" });
+    }
   } catch (error) {
     res.status(500).json({ messege: error.messege });
   }

@@ -11,6 +11,7 @@ app.use(cors());
 const gymRoutes = require("./routes/Gyms");
 const classRouters = require("./routes/Class");
 const userRoutes = require("./routes/User");
+const ClassTypesRoutes = require("./routes/_ClassType");
 
 app.use(passport.initialize());
 passport.use(localStrategy);
@@ -19,6 +20,7 @@ passport.use(jwtStrategy);
 app.use("/gym", gymRoutes);
 app.use("/class", classRouters);
 app.use(userRoutes);
+app.use("/classType", ClassTypesRoutes);
 
 app.use((req, res, next) => {
   const err = new Error("Page not found 404");

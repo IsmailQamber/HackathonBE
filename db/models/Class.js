@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const _Class = sequelize.define(
-    "_Class",
+  const Class = sequelize.define(
+    "Class",
     {
       name: {
         type: DataTypes.STRING,
@@ -27,5 +27,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  return _Class;
+  return Class;
 };

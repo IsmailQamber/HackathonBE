@@ -15,7 +15,7 @@ router.param("GymId", async (req, res, next, GymId) => {
     req.gym = foundGym;
     next();
   } else {
-    const err = new Error("No Cinema found by this ID");
+    const err = new Error("No Gym found by this ID");
     err.status = 404;
     next(err);
   }
@@ -23,6 +23,10 @@ router.param("GymId", async (req, res, next, GymId) => {
 
 router.get("/", FindGyms);
 router.post("/", passport.authenticate("jwt", { session: false }), CreateGym);
-router.post("/:GymId/classes", ClassCreate);
+router.post(
+  "/:GymId/classes",
+  passport.authenticate("jwt", { session: false }),
+  ClassCreate
+);
 
 module.exports = router;
