@@ -4,20 +4,20 @@ module.exports = (sequelize, DataTypes) => {
     {
       username: {
         type: DataTypes.STRING,
-        unique: {
-          args: true,
-          msg: "Username already exists",
-        },
+        // unique: {
+        //   args: true,
+        //   msg: "Username already exists",
+        // },
       },
       password: {
         type: DataTypes.STRING,
       },
       email: {
         type: DataTypes.STRING,
-        unique: true,
-        validation: {
-          isEmail: true,
-        },
+        // unique: true,
+        // validation: {
+        //   isEmail: true,
+        // },
       },
     },
     {

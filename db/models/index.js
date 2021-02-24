@@ -49,7 +49,7 @@ db.Class.belongsTo(db.ClassType);
 db.UserType.hasMany(db.User, { foreginKey: "UserTypeId" });
 db.User.belongsTo(db.UserType);
 
-db.Gym.hasMany(db.Class, { foreginKey: "gymId" });
+db.Gym.hasMany(db.Class, { foreginKey: "gymId", as: "classes" });
 db.Class.belongsTo(db.Gym);
 
 db.User.belongsToMany(db.Gym, { through: "gym_users" });
